@@ -131,28 +131,29 @@ function Home() {
 
   const switchButtonHandler = () => {
     if (counter === 0) {
+      let accessToken = "pk.bd3d13c6284c894ed61f03bc383eb75d";
       let xx =
         document.querySelector("#city").value +
         " " +
         document.querySelector("#country").value;
-      let geocodeURL = `https://api.positionstack.com/v1/forward?access_key=566726bdc3507f40e66f1bd129d77a8b&query=${xx}`;
+      let geooo = `https://eu1.locationiq.com/v1/search?key=${accessToken}&q=${xx}&format=json`;
       axios
         //calling api to fetch latitude and longitude from user input
-        .get(geocodeURL)
+        .get(geooo)
         .then((res) => {
-          lat = res.data.data[0].latitude;
-          lon = res.data.data[0].longitude;
-          if (res.data.data[0].region !== null) {
-            callOpenWeather(lat, lon);
-            name = res.data.data[0].name;
-            setTimeout(() => {
-              //give 3 seconds delay for the api to load
-              setContent(<ShowWeatherDiv />);
-              setSwitchButtonText("Checkout another place");
-              document.querySelector(".background-video").load();
-            }, 3000);
-          } else {
-          }
+          console.log(res.data);
+          lat = res.data[0].lat;
+          lon = res.data[0].lon;
+          callOpenWeather(lat, lon);
+          let nameString = res.data[0].display_name;
+          let nameArray = nameString.split(",");
+          name = nameArray[0];
+          setTimeout(() => {
+            //give 3 seconds delay for the api to load
+            setContent(<ShowWeatherDiv />);
+            setSwitchButtonText("Checkout another place");
+            document.querySelector(".background-video").load();
+          }, 3000);
         })
         .catch((error) => {
           console.error(error);
@@ -177,6 +178,16 @@ function Home() {
         <button className="handler-btn" onClick={switchButtonHandler}>
           {switchButtonText}
         </button>
+        <label>
+          Powered by{" "}
+          <a href="https://locationiq.com/geocoding" target="_blank">
+            LocationIQ
+          </a>{" "}
+          and{" "}
+          <a href="https://openweathermap.org/current" target="_blank">
+            OpenWeatherMap
+          </a>
+        </label>
       </div>
     </div>
   );
