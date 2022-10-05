@@ -135,7 +135,7 @@ function Home() {
         document.querySelector("#city").value +
         " " +
         document.querySelector("#country").value;
-      let geocodeURL = `http://api.positionstack.com/v1/forward?access_key=566726bdc3507f40e66f1bd129d77a8b&query=${xx}`;
+      let geocodeURL = `https://api.positionstack.com/v1/forward?access_key=566726bdc3507f40e66f1bd129d77a8b&query=${xx}`;
       axios
         //calling api to fetch latitude and longitude from user input
         .get(geocodeURL)
