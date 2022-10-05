@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import "./styles/home.css";
 import axios from "axios";
 import clouds from "../assets/Weather-Background-Clouds.mp4";
-import clearSkies from "/Users/souvik/Desktop/react/week 2 - api calls/my-app/src/assets/BgVideo - Clear.mp4";
-import drizzleSkies from "/Users/souvik/Desktop/react/week 2 - api calls/my-app/src/assets/bgvideo - rain.mp4";
-import rainySkies from "/Users/souvik/Desktop/react/week 2 - api calls/my-app/src/assets/bgvideo - heavy rain.mp4";
-import thunderSkies from "/Users/souvik/Desktop/react/week 2 - api calls/my-app/src/assets/bgVideo - thunderstorm.mp4";
-import snowySkies from "/Users/souvik/Desktop/react/week 2 - api calls/my-app/src/assets/bgVideo - snow.mp4";
-import fogSkies from "/Users/souvik/Desktop/react/week 2 - api calls/my-app/src/assets/video - fog.mp4";
-import tornadoSkies from "/Users/souvik/Desktop/react/week 2 - api calls/my-app/src/assets/bgvideo - tornado.mp4";
-import hazeSkies from "/Users/souvik/Desktop/react/week 2 - api calls/my-app/src/assets/bgVideo - haze.mp4";
-import defaultVideo from "/Users/souvik/Desktop/react/week 2 - api calls/my-app/src/assets/default bg.mp4";
+import clearSkies from "../assets/BgVideo - Clear.mp4";
+import drizzleSkies from "../assets/bgvideo - rain.mp4";
+import rainySkies from "../assets/bgvideo - heavy rain.mp4";
+import thunderSkies from "../assets/bgVideo - thunderstorm.mp4";
+import snowySkies from "../assets/bgVideo - snow.mp4";
+import fogSkies from "../assets/video - fog.mp4";
+import tornadoSkies from "../assets/bgvideo - tornado.mp4";
+import hazeSkies from "../assets/bgVideo - haze.mp4";
+import defaultVideo from "../assets/default bg.mp4";
 
 let name = "",
   temp = 0,
