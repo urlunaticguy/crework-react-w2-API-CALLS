@@ -1,0 +1,99 @@
+h1 {
+    margin: 0;
+}
+
+.home {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.background-video {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.homeChild {
+    width: 35vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(59, 73, 233, 0.7);
+    padding: 20px 15px;
+    border-radius: 20px;
+    border: 5px solid rgb(226, 215, 215);
+    z-index: 1;
+    color: rgb(226, 215, 215);
+}
+.dynamicDiv {
+    width: 35vw;
+}
+
+.title {
+    font-size: 3rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.handler-btn {
+    height: 2.2rem;
+    font-size: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    border-radius: 15px;
+    padding: 5px 15px;
+    font-weight: bolder;
+}
+
+.handler-btn:hover {
+    background-color: rgb(226, 215, 215);
+}
+
+input {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.2rem;
+    height: 2rem;
+    border-radius: 15px;
+}
+
+.showWeatherDiv {
+    width: 35vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.name-label {
+    font-size: 2.5rem;
+    font-weight: 100;
+}
+
+.temp-label {
+    font-size: 5rem;
+    font-weight: normal;
+}
+
+.rows-common {
+    font-size: 2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.img-holder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.weather-img {
+    width: 250px;
+    height: 250px;
+}
