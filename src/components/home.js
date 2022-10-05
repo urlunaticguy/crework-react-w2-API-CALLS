@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles/home.css";
 import axios from "axios";
-import clouds from "/Users/souvik/Desktop/react/week 2 - api calls/my-app/src/assets/Weather-Background-Clouds.mp4";
+import clouds from "../assets/Weather-Background-Clouds.mp4";
 import clearSkies from "/Users/souvik/Desktop/react/week 2 - api calls/my-app/src/assets/BgVideo - Clear.mp4";
 import drizzleSkies from "/Users/souvik/Desktop/react/week 2 - api calls/my-app/src/assets/bgvideo - rain.mp4";
 import rainySkies from "/Users/souvik/Desktop/react/week 2 - api calls/my-app/src/assets/bgvideo - heavy rain.mp4";
