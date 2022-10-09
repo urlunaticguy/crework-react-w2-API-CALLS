@@ -11,6 +11,10 @@ import fogSkies from "../assets/video - fog.mp4";
 import tornadoSkies from "../assets/bgvideo - tornado.mp4";
 import hazeSkies from "../assets/bgVideo - haze.mp4";
 import defaultVideo from "../assets/default bg.mp4";
+import ErrorComponent from "./ErrorComp/ErrorComponent.jsx";
+import LoaderComponent from "./LoaderComp/LoaderComponent.jsx";
+import SelectLocationComponent from "./SelectLocationComp/SelectLocationComponent.jsx";
+import ShowWeatherComponent from "./ShowWeatherComp/ShowWeatherComponent.jsx";
 
 let name = "",
   temp = 0,
@@ -22,7 +26,27 @@ let name = "",
   videoTaggerx = "",
   humidity = 0;
 
-//Not a UI function
+let weatherTypes = [
+  "Clouds",
+  clouds,
+  "Clear",
+  clearSkies,
+  "Rain",
+  rainySkies,
+  "Drizzle",
+  drizzleSkies,
+  "Thunderstorm",
+  thunderSkies,
+  "Snow",
+  snowySkies,
+  "Haze",
+  hazeSkies,
+  "Tornado",
+  tornadoSkies,
+  "Fog",
+  fogSkies,
+];
+
 function convertKelvinToCelsius(x) {
   let answer = (x - 273.15).toFixed(2);
   return answer;
@@ -37,49 +61,11 @@ function capitalizeEachWord(ss) {
   return newString;
 }
 
-//UI function
-function SelectLocationDiv() {
-  return (
-    <div className="selectLocationDiv">
-      <h1 className="title">Weather App</h1>
-      <h3>Enter city / town / village</h3>
-      <input id="city" />
-      <h3>Enter your State / Country (optional)</h3>
-      <input id="country" />
-    </div>
-  );
-}
-
-//UI function
-function ShowWeatherDiv() {
-  return (
-    <div className="showWeatherDiv">
-      {/* <div className="row"> */}
-      <label className="name-label">{name}</label>
-      <label className="temp-label">{temp}º</label>
-      {/* </div> */}
-      <label className="rows-common">{weatherDescription}</label>
-      <label className="rows-common">Feels {feelsTemp}º</label>
-      <label className="rows-common">Humidity {humidity}%</label>
-      <label className="rows-common">Cloud Cover {cloudCover}%</label>
-      <label className="rows-common">{rain}mm rain in the last hour</label>
-      <div className="img-holder">
-        <img
-          className="weather-img"
-          src={weatherDescImg}
-          alt="Weather Description Image"
-        />
-      </div>
-    </div>
-  );
-}
-
-//flagship functional component
 function Home() {
   let lat = 0.0,
     lon = 0.0;
   const [counter, setCounter] = useState(0);
-  const [content, setContent] = useState(<SelectLocationDiv />);
+  const [content, setContent] = useState(<SelectLocationComponent />);
   const [switchButtonText, setSwitchButtonText] = useState("Get Weather");
   const [videoo, setVideo] = useState(defaultVideo);
 
@@ -96,27 +82,8 @@ function Home() {
       cloudCover = res.data.clouds.all;
       videoTaggerx = res.data.weather[0].main;
       humidity = res.data.main.humidity;
-      if (videoTaggerx === "Clouds") {
-        setVideo(clouds);
-      } else if (videoTaggerx === "Clear") {
-        setVideo(clearSkies);
-      } else if (videoTaggerx === "Rain") {
-        setVideo(rainySkies);
-      } else if (videoTaggerx === "Drizzle") {
-        setVideo(drizzleSkies);
-      } else if (videoTaggerx === "Thunderstorm") {
-        setVideo(thunderSkies);
-      } else if (videoTaggerx === "Snow") {
-        setVideo(snowySkies);
-      } else if (videoTaggerx === "Haze") {
-        setVideo(hazeSkies);
-      } else if (videoTaggerx === "Tornado") {
-        setVideo(tornadoSkies);
-      } else if (videoTaggerx === "Fog") {
-        setVideo(fogSkies);
-      } else if (videoTaggerx === "") {
-        setVideo();
-      }
+      let index = weatherTypes.indexOf(videoTaggerx);
+      setVideo(weatherTypes[index + 1]);
       if (humidity === null) {
         humidity = 0;
       }
@@ -148,19 +115,33 @@ function Home() {
           let nameString = res.data[0].display_name;
           let nameArray = nameString.split(",");
           name = nameArray[0];
+          setContent(<LoaderComponent />);
           setTimeout(() => {
             //give 3 seconds delay for the api to load
-            setContent(<ShowWeatherDiv />);
+            setContent(
+              <ShowWeatherComponent
+                namee={name}
+                tempp={temp}
+                weatherDesc={weatherDescription}
+                feels={feelsTemp}
+                humid={humidity}
+                cloud={cloudCover}
+                rains={rain}
+                img={weatherDescImg}
+              />
+            );
             setSwitchButtonText("Checkout another place");
             document.querySelector(".background-video").load();
           }, 3000);
         })
         .catch((error) => {
           console.error(error);
+          setContent(<ErrorComponent />);
+          setSwitchButtonText("Try Again");
         });
       setCounter(1);
     } else {
-      setContent(<SelectLocationDiv />);
+      setContent(<SelectLocationComponent />);
       setCounter(0);
       setVideo(defaultVideo);
       document.querySelector(".background-video").load();

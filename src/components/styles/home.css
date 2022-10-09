@@ -31,14 +31,9 @@ h1 {
     z-index: 1;
     color: rgb(226, 215, 215);
 }
+
 .dynamicDiv {
     width: 35vw;
-}
-
-.title {
-    font-size: 3rem;
-    letter-spacing: 1px;
-    font-weight: bold;
 }
 
 .handler-btn {
@@ -64,15 +59,15 @@ input {
     border-radius: 15px;
 }
 
-.showWeatherDiv {
+/* .showWeatherDiv {
     width: 35vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-}
+} */
 
-.name-label {
+/* .name-label {
     font-size: 2.5rem;
     font-weight: 100;
 }
@@ -86,9 +81,9 @@ input {
     font-size: 2rem;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-}
+} */
 
-.img-holder {
+/* .img-holder {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -97,7 +92,7 @@ input {
 .weather-img {
     width: 250px;
     height: 250px;
-}
+} */
 
 a {
     text-decoration: none;
