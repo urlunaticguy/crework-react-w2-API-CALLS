@@ -11,6 +11,7 @@ import fogSkies from "../assets/video - fog.mp4";
 import tornadoSkies from "../assets/bgvideo - tornado.mp4";
 import hazeSkies from "../assets/bgVideo - haze.mp4";
 import defaultVideo from "../assets/default bg.mp4";
+// import * as vids from "../assets/export.js";
 import ErrorComponent from "./ErrorComp/ErrorComponent.jsx";
 import LoaderComponent from "./LoaderComp/LoaderComponent.jsx";
 import SelectLocationComponent from "./SelectLocationComp/SelectLocationComponent.jsx";
@@ -23,29 +24,19 @@ let name = "",
   weatherDescImg = "",
   cloudCover = 0,
   rain = 0,
-  videoTaggerx = "",
   humidity = 0;
 
-let weatherTypes = [
-  "Clouds",
-  clouds,
-  "Clear",
-  clearSkies,
-  "Rain",
-  rainySkies,
-  "Drizzle",
-  drizzleSkies,
-  "Thunderstorm",
-  thunderSkies,
-  "Snow",
-  snowySkies,
-  "Haze",
-  hazeSkies,
-  "Tornado",
-  tornadoSkies,
-  "Fog",
-  fogSkies,
-];
+const weatherVids = {
+  Clouds: clouds,
+  Clear: clearSkies,
+  Rain: rainySkies,
+  Drizzle: drizzleSkies,
+  Thunderstorm: thunderSkies,
+  Snow: snowySkies,
+  Haze: hazeSkies,
+  Tornado: tornadoSkies,
+  Fog: fogSkies,
+};
 
 function convertKelvinToCelsius(x) {
   let answer = (x - 273.15).toFixed(2);
@@ -62,8 +53,7 @@ function capitalizeEachWord(ss) {
 }
 
 function Home() {
-  let lat = 0.0,
-    lon = 0.0;
+  let coordinates = { lat: 0.0, lon: 0.0 };
   const [counter, setCounter] = useState(0);
   const [content, setContent] = useState(<SelectLocationComponent />);
   const [switchButtonText, setSwitchButtonText] = useState("Get Weather");
@@ -80,10 +70,8 @@ function Home() {
       weatherDescription = capitalizeEachWord(res.data.weather[0].description);
       weatherDescImg = `https://openweathermap.org/img/wn/${res.data.weather[0].icon}@4x.png`;
       cloudCover = res.data.clouds.all;
-      videoTaggerx = res.data.weather[0].main;
       humidity = res.data.main.humidity;
-      let index = weatherTypes.indexOf(videoTaggerx);
-      setVideo(weatherTypes[index + 1]);
+      setVideo(weatherVids[res.data.weather[0].main]);
       if (humidity === null) {
         humidity = 0;
       }
@@ -108,10 +96,9 @@ function Home() {
         //calling api to fetch latitude and longitude from user input
         .get(geooo)
         .then((res) => {
-          console.log(res.data);
-          lat = res.data[0].lat;
-          lon = res.data[0].lon;
-          callOpenWeather(lat, lon);
+          coordinates.lat = res.data[0].lat;
+          coordinates.lon = res.data[0].lon;
+          callOpenWeather(coordinates.lat, coordinates.lon);
           let nameString = res.data[0].display_name;
           let nameArray = nameString.split(",");
           name = nameArray[0];
